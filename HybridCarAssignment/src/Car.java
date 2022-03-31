@@ -1,6 +1,5 @@
 public class Car {
 
-    String[] positions = { "A", "B", "C", "D" };
     String current_using = "Fuel";
     String currentPosition = "start";
     int fuel, battery;
@@ -105,7 +104,10 @@ public class Car {
 	}
     }
 
-    public String whereTo(Car car, Vertex vertices) {
+    /*
+     * TODO: Implement this method with new code
+     * 
+    public String whereTo(Car car, Edge vertices) {
 	if (vertices.type == "gas station") {
 	    car.setComponent("fuel");
 	    car.move(vertices.name);
@@ -120,6 +122,7 @@ public class Car {
 	}
 
     }
+    */
 
     /**
      * Method which will override the current toString method
