@@ -119,10 +119,15 @@ public class Node implements Comparable<Node> {
 
     /**
      * Overriding the compareTo method from the {@link Comparable#compareTo(Object)} interface
+     * <br>
+     * This method compares the distances between the {@link #Node(String)}
      */
     @Override
     public int compareTo(Node o) {
-	
+	/* It returns the value 0 if x == y;
+	 * a value less than 0 if x < y; 
+	 * and a value greater than 0 if x > y
+	 */
 	return Integer.compare(this.distance, o.getDistance());
     }
     
