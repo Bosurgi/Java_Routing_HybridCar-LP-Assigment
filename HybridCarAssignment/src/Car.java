@@ -158,7 +158,7 @@ public class Car {
 		refuel();
 	    }
 	    
-	} // End of main IF
+	} // End of IF
 	
 	if(battery <= 10 && currentPosition.type.toLowerCase() == "charge station" || currentPosition.type.toLowerCase() == "both") {
 	    System.out.printf("\nDo you want to recharge at %s: (y/n)", currentPosition);
@@ -173,8 +173,10 @@ public class Car {
 		System.out.println("Input not recognized. Retry.");
 		refuel();
 	    }
-	}
+	} // End of IF
 	
+	// Closing scanner
+	sc.close();
     } // End of method
     
     
