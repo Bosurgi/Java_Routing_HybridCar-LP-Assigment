@@ -12,7 +12,7 @@ public class driver {
 	DijkstraAlgorithm shortestPath = new DijkstraAlgorithm();
 	
 	// Instantiating a car with Fuel 50 and battery 50
-	Car hybrid = new Car(50, 50);
+	Car hybrid = new Car(20, 30);
 	
 	// Instantiating the nodes of the graph
 	Node a = new Node("A");
@@ -52,8 +52,14 @@ public class driver {
 	e.addAdjacent(e11);
 	e.addAdjacent(e12);
 	
-	
+	hybrid.move(a);
 
+	hybrid.move(c);
+	hybrid.move(b);
+	
+	System.out.println(hybrid.fuel);
+	System.out.println(hybrid.battery);
+	
     }
 
 }
