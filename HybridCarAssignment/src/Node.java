@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
+ * Class which defines a Node. A point on a map which has a name and it will be used in the Edge class.
+ * <br> It also represent a point between edges.
  * 
  * @author A. La Fauci De Leo
  * Adapted from Mandliya(2020)

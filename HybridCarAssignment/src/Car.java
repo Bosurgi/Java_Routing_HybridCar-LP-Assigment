@@ -1,7 +1,7 @@
 public class Car {
 
     String current_using = "Fuel";
-    String currentPosition = "start";
+    Node currentPosition = new Node("Start");
     int fuel, battery;
 
     /**
@@ -21,8 +21,12 @@ public class Car {
 	return this.current_using;
     }
 
-    public String getCurrentPosition() {
+    public Node getCurrentPosition() {
 	return this.currentPosition;
+    }
+    
+    public void setCurrentPosition(String currentPosition) {
+	this.currentPosition.name = currentPosition;
     }
 
     /*
@@ -98,9 +102,11 @@ public class Car {
      * 
      * @param nextPosition the next position where the car will move.
      */
-    public void move(String nextPosition) {
+    public void move(Node nextPosition) {
 	if (canMove()) {
-	    System.out.printf("\nCar is moving from %s to %s\n", this.currentPosition, nextPosition);
+	    System.out.printf("\nCar is moving from %s to %s\n", this.currentPosition, nextPosition.getName());
+	    // Keeping track of the car's position.
+	    this.currentPosition = nextPosition;
 	}
     }
 
