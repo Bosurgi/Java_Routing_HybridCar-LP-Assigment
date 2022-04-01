@@ -5,32 +5,13 @@ public class Car {
     String currentUsing = "fuel";
     Node currentPosition = new Node("start");
     int fuel, battery;
-    boolean warning = false;
+    boolean canMove = true;
 
     /**
-     * Warning if fuel is low
-     * 
-     * @return the warning
-     */
-    public boolean isWarning() {
-	return warning;
-    }
-
-    /**
-     * Set the warning to change mode if fuel is low.
-     * 
-     * @param warning the warning to set
-     */
-    public void setWarning(boolean warning) {
-	this.warning = warning;
-    }
-
-    /**
-     * Method which will set the component the car will need to use
+     * Method which will set the component the car will use
      */
     public void setComponent(String component) {
 	this.currentUsing = component;
-	System.out.printf("\nThe car is using now %s\n", component);
     }
 
     /**
@@ -46,8 +27,8 @@ public class Car {
 	return this.currentPosition;
     }
 
-    public void setCurrentPosition(String currentPosition) {
-	this.currentPosition.name = currentPosition;
+    public void setCurrentPosition(Node currentPosition) {
+	this.currentPosition = currentPosition;
     }
 
     /*
@@ -69,161 +50,73 @@ public class Car {
 	this.fuel = fuel;
     }
 
-    /**
-     * Method used to change mode of the engine. Using Battery when Fuel is low and
-     * vice versa. When both are low they are using Fuel to charge the Battery just
-     * to get to the nearest Station available.
-     */
-    public void changeMode() {
-
-	if (this.battery <= 20 && this.fuel > 30) {
-	    System.out.println("\nLow Fuel and Battery. Using Fuel to charge battery and get to nearest Station.");
-	    setComponent("fuel");
-	}
-
-	else if (this.battery <= 30) {
-	    System.out.printf("\nLow Battery Level. Battery: %d", this.battery);
-	    setComponent("fuel");
-	}
-
-	else if (this.fuel <= 30) {
-	    System.out.printf("\nLow Fuel Level. Fuel: %d", this.fuel);
-	    setComponent("battery");
-	}
-
-    }
-
-    /**
-     * Method used to Stop the Car signalling that the car can't move
-     */
     public void stop() {
-	System.out.println("\nCar can't move. Not enough Fuel or Battery\n");
+	setCurrentPosition(getCurrentPosition());
+	System.out.println("\nWarning car can't move.\n");
     }
 
     /**
-     * Method which is used to determine if a car can move or not. If the car has no
-     * battery or fuel it will call the Stop method to indicate the car cannot move.
-     * If not it will change mode depending on the levels of the Battery and Fuel
-     * 
-     * @return false if it cannot move, true if there is enough energy or fuel to
-     *         move
+     * Method which will check the Autonomy of the car and will determine which type
+     * of fuel to use.
      */
 
-    public boolean canMove() {
+    public void checkAutonomy() {
 
-	if (this.battery == 0 && this.fuel == 0) {
-	    stop();
-	    return false;
+	if (fuel > battery && battery == 0) {
+
+	    setComponent("fuel");
+	    System.out.printf("\nCar is moving with %s\n", getComponent());
 	}
 
-	else if (this.battery == 0 || this.fuel >= 10) {
-	    setWarning(true);
-	    return true;
+	else if (battery > fuel && fuel == 0) {
+	    setComponent("battery");
+	    System.out.printf("\nCar is moving with %s\n", getComponent());
 	}
 
-	else if (this.fuel == 0 || this.battery >= 10) {
-	    setWarning(true);
-	    return true;
+	else if (battery <= 0 && fuel <= 0) {
+	    canMove = false;
 	}
 
-	else
-	    return true;
-    }
-
-    /*
-     * public boolean canMove() { if (this.battery == 0 && this.fuel == 0) { stop();
-     * return false; } else if(currentUsing.toLowerCase() == "fuel" && this.fuel <
-     * 30) { changeMode(); return true; }
-     * 
-     * else if(currentUsing.toLowerCase() == "battery" && this.battery < 30) {
-     * changeMode(); return true; } else if (this.battery == 0) {
-     * setComponent("fuel"); return true } else if (this.fuel == 0) {
-     * setComponent("battery"); } }
-     */
-
-    /**
-     * Method to make the car move from the Current position to the next Position It
-     * will check if the car can move first, if it can it will proceed. If not
-     * canMove method will handle the situation where the car cannot move.
-     * 
-     * @param nextPosition the next position where the car will move.
-     */
-    public void move(Node nextPosition) {
-	if (canMove() && !isWarning()) {
-	    System.out.printf("\nCar is moving from %s to %s\n", this.currentPosition, nextPosition.getName());
-	    // Keeping track of the car's position.
-	    this.currentPosition = nextPosition;
-	    consumption();
-	} 
-	else if (canMove() && isWarning()) {
-	    changeMode();
-	    System.out.printf("\nCar is moving from %s to %s\n", this.currentPosition, nextPosition.getName());
-	    this.currentPosition = nextPosition;
-	    consumption();
+	else if (fuel <= 20) {
+	    setComponent("battery");
+	    System.out.printf("\nCar is moving with %s\n", getComponent());
 	}
-	else
-	    changeMode();
+
+	else if (battery <= 20) {
+	    setComponent("fuel");
+	    System.out.printf("\nCar is moving with %s\n", getComponent());
+	}
     }
 
     /**
      * Method which simulates the consumption of Fuel or Battery depending on what
      * the vehicle is using. <br>
      * If it is using Fuel it will reduce fuel by 10 units by default between nodes.
-     * TODO: Modifying it with the actual distance between nodes.
+     * TODO: Modifying it with the actual distance between nodes. TODO: fix bug for
+     * moving and make the car stopping if both levels are 0.
      */
     public void consumption() {
-	if (canMove()) {
-	    if (this.currentUsing.toLowerCase() == "fuel") {
-		setFuel(this.fuel - 10);
-	    } else if (this.currentUsing.toLowerCase() == "battery") {
-		setBattery(this.battery - 10);
-	    }
-	} else
-	    stop();
+
+	checkAutonomy();
+
+	if (this.currentUsing.toLowerCase() == "fuel") {
+	    setFuel(this.fuel - 10);
+	} else if (this.currentUsing.toLowerCase() == "battery") {
+	    setBattery(this.battery - 10);
+	}
     }
 
-    /**
-     * Method which will simulate re-charging or re-fueling the car
-     */
-    public void refuel() {
-	// Initialising the scanner to make it interactive.
-	Scanner sc = new Scanner(System.in);
-	String answer = sc.nextLine();
+    public void move(Node nextNode) {
+	if (canMove) {
+	    checkAutonomy();
+	    System.out.printf("\nCar moved from %s to %s \n", currentPosition, nextNode);
+	    setCurrentPosition(nextNode);
+	    consumption();
+	}
+	else stop();
 
-	if (fuel <= 10 && currentPosition.type.toLowerCase() == "gas station"
-		|| currentPosition.type.toLowerCase() == "both") {
-	    System.out.printf("\nDo you want to refuel at %s: (y/n)", currentPosition);
-	    if (answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
-		setFuel(100);
-		System.out.println("\nCar Refueled");
-	    } else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
-		System.out.println("\nCar NOT refueled");
-	    } else {
-		System.out.println("\nInput not recognized. Retry.");
-		refuel();
-	    }
+    }
 
-	} // End of IF
-
-	if (battery <= 10 && currentPosition.type.toLowerCase() == "charge station"
-		|| currentPosition.type.toLowerCase() == "both") {
-	    System.out.printf("\nDo you want to recharge at %s: (y/n)", currentPosition);
-	    if (answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
-		setBattery(100);
-		System.out.println("\nCar Recharged");
-	    } else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
-		System.out.println("\nCar NOT recharged");
-	    } else {
-		System.out.println("\nInput not recognized. Retry.");
-		refuel();
-	    }
-	} // End of IF
-
-	// Closing scanner
-	sc.close();
-    } // End of method
-
-    
     /**
      * Method which will override the current toString method
      */

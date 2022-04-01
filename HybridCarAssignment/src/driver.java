@@ -56,6 +56,13 @@ public class driver {
 
 	hybrid.move(c);
 	hybrid.move(b);
+	hybrid.move(e);
+	
+	hybrid.move(f);
+	hybrid.move(e);
+	//TODO fix bug for car not moving moving.
+	hybrid.move(c);
+	
 	
 	System.out.println(hybrid.fuel);
 	System.out.println(hybrid.battery);
