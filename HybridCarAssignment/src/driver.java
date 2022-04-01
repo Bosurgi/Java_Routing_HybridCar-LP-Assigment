@@ -8,10 +8,13 @@ public class driver {
 
     public static void main(String[] args) {
 	
+	// Instantiating the algorithm class
+	DijkstraAlgorithm shortestPath = new DijkstraAlgorithm();
+	
 	// Instantiating a car with Fuel 50 and battery 50
 	Car hybrid = new Car(50, 50);
 	
-	// Instatiating the nodes of the graph
+	// Instantiating the nodes of the graph
 	Node a = new Node("A");
 	Node b = new Node("B");
 	Node c = new Node("C");
@@ -32,20 +35,24 @@ public class driver {
 	Edge e8 = new Edge(a, b, 6);
 	Edge e9 = new Edge(b, c, 15);
 	Edge e10 = new Edge(c, d, 10);
-	Edge e11 = new Edge(d, e, 5);
-	Edge e12 = new Edge(c, e, 12);
+	Edge e11 = new Edge(e, d, 5);
+	Edge e12 = new Edge(e, c, 12);
 	
-	// Making the car move among nodes
+	// Setting the adjacent nodes
+	start.addAdjacent(e1);
+	start.addAdjacent(e2);
+	f.addAdjacent(e3);
+	f.addAdjacent(e4);
+	g.addAdjacent(e5);
+	g.addAdjacent(e6);
+	a.addAdjacent(e7);
+	a.addAdjacent(e8);
+	b.addAdjacent(e9);
+	c.addAdjacent(e10);
+	e.addAdjacent(e11);
+	e.addAdjacent(e12);
 	
-	hybrid.move(c);
-	hybrid.move(d);
-	hybrid.move(f);
-	
-	
-	
-	
-	
-	
+		
 
     }
 

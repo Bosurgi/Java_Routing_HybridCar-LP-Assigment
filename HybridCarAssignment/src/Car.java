@@ -107,16 +107,20 @@ public class Car {
 	    System.out.printf("\nCar is moving from %s to %s\n", this.currentPosition, nextPosition.getName());
 	    // Keeping track of the car's position.
 	    this.currentPosition = nextPosition;
+	    consumption();
 	}
     }
     
+    /**
+     * Method which simulates the consumption of Fuel or Battery depending on what the veichle is using.
+     */
     public void consumption() {
 	if(canMove()) {
 	    if(this.currentUsing == "Fuel") {
-		fuel -= 10;
+		setFuel(this.fuel - 10);
 	    }
 	    else if(this.currentUsing == "Battery" ) {
-		fuel -= 10;
+		setBattery(this.battery - 10);
 	    }
 	}
     }
