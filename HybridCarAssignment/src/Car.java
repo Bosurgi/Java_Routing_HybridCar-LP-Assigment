@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Car {
 
     String currentUsing = "Fuel";
@@ -59,11 +61,11 @@ public class Car {
 	    System.out.println("Low Fuel and Battery. Using Fuel to charge battery and get to nearest Station.");
 	    currentUsing = "Fuel";
 	}
-
 	else if (this.battery <= 30) {
 	    System.out.printf("Low Battery Level. Battery: %d", this.battery);
 	    setComponent("Fuel");
-	} else if (this.fuel <= 30) {
+	} 
+	else if (this.fuel <= 30) {
 	    System.out.printf("Low Fuel Level. Fuel: %d", this.fuel);
 	    setComponent("Battery");
 	}
@@ -89,10 +91,17 @@ public class Car {
 	if (this.battery == 0 && this.fuel == 0) {
 	    stop();
 	    return false;
-	} else { //TODO: Refine this so it doesn't print everytime it moves
+	}
+	else if(currentUsing.toLowerCase() == "fuel" && this.fuel < 30) {
 	    changeMode();
 	    return true;
 	}
+	
+	else if(currentUsing.toLowerCase() == "battery" && this.battery < 30) {
+	    changeMode();
+	    return true;
+	}
+	else return true;
     }
 
     /**
@@ -110,9 +119,11 @@ public class Car {
 	    consumption();
 	}
     }
-    
+        
     /**
-     * Method which simulates the consumption of Fuel or Battery depending on what the veichle is using.
+     * Method which simulates the consumption of Fuel or Battery depending on what the vehicle is using.
+     * <br> If it is using Fuel it will reduce fuel by 10 units by default between nodes.
+     * TODO: Modifying it with the actual distance between nodes.
      */
     public void consumption() {
 	if(canMove()) {
@@ -125,26 +136,48 @@ public class Car {
 	}
     }
 
-    /*
-     * TODO: Implement this method with new code
-     * 
-    public String whereTo(Car car, Edge vertices) {
-	if (vertices.type == "gas station") {
-	    car.setComponent("fuel");
-	    car.move(vertices.name);
-	    return vertices.name;
-	} else if (vertices.type == "charge station") {
-	    car.setComponent("fuel");
-	    car.move(vertices.name);
-	    return vertices.name;
-	} else {
-	    car.move(vertices.name);
-	    return vertices.name;
+    /**
+     * Method which will simulate re-charging or re-fueling the car
+     */
+    public void refuel() {
+	// Initialising the scanner to make it interactive.
+	Scanner sc = new Scanner(System.in);
+	String answer = sc.nextLine();
+	
+	if(fuel <= 10 && currentPosition.type.toLowerCase() == "gas station" || currentPosition.type.toLowerCase() == "both") {
+	    System.out.printf("\nDo you want to refuel at %s: (y/n)", currentPosition);
+	    if(answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
+		setFuel(100);
+		System.out.println("\nCar Refueled");
+	    }
+	    else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
+		System.out.println("\nCar NOT refueled");
+	    }
+	    else {
+		System.out.println("Input not recognized. Retry.");
+		refuel();
+	    }
+	    
+	} // End of main IF
+	
+	if(battery <= 10 && currentPosition.type.toLowerCase() == "charge station" || currentPosition.type.toLowerCase() == "both") {
+	    System.out.printf("\nDo you want to recharge at %s: (y/n)", currentPosition);
+	    if(answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
+		setBattery(100);
+		System.out.println("\nCar Recharged");
+	    }
+	    else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
+		System.out.println("\nCar NOT recharged");
+	    }
+	    else {
+		System.out.println("Input not recognized. Retry.");
+		refuel();
+	    }
 	}
-
-    }
-    */
-
+	
+    } // End of method
+    
+    
     /**
      * Method which will override the current toString method
      */
