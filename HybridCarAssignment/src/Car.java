@@ -1,6 +1,6 @@
 public class Car {
 
-    String current_using = "Fuel";
+    String currentUsing = "Fuel";
     Node currentPosition = new Node("Start");
     int fuel, battery;
 
@@ -8,7 +8,7 @@ public class Car {
      * Method which will set the component the car will need to use
      */
     public void setComponent(String component) {
-	this.current_using = component;
+	this.currentUsing = component;
 	System.out.printf("\nThe car is using now %s\n", component);
     }
 
@@ -18,7 +18,7 @@ public class Car {
      * @return
      */
     public String getComponent() {
-	return this.current_using;
+	return this.currentUsing;
     }
 
     public Node getCurrentPosition() {
@@ -57,7 +57,7 @@ public class Car {
 
 	if (this.battery <= 30 && this.fuel <= 30) {
 	    System.out.println("Low Fuel and Battery. Using Fuel to charge battery and get to nearest Station.");
-	    current_using = "Fuel";
+	    currentUsing = "Fuel";
 	}
 
 	else if (this.battery <= 30) {
@@ -109,6 +109,17 @@ public class Car {
 	    this.currentPosition = nextPosition;
 	}
     }
+    
+    public void consumption() {
+	if(canMove()) {
+	    if(this.currentUsing == "Fuel") {
+		fuel -= 10;
+	    }
+	    else if(this.currentUsing == "Battery" ) {
+		fuel -= 10;
+	    }
+	}
+    }
 
     /*
      * TODO: Implement this method with new code
@@ -136,7 +147,7 @@ public class Car {
     public String toString() {
 
 	return String.format("\nFuel Level: %d \n Battery Level: %d \n Current Using %s \n Position: %s", this.fuel,
-		this.battery, this.current_using, this.currentPosition);
+		this.battery, this.currentUsing, this.currentPosition);
     }
 
     /*

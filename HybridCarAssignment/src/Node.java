@@ -13,7 +13,7 @@ public class Node implements Comparable<Node> {
     /**
      * The name of the Node
      */
-    public String name;
+    public String name, type;
     /**
      * Indicates if the node was explored or not
      */
@@ -45,6 +45,21 @@ public class Node implements Comparable<Node> {
      */
     public void setName(String name) {
 	this.name = name;
+    }
+    
+    /**
+     * Getter for the type attribute
+     * @return the type of the Node
+     */
+    public String getType() {
+	return this.type;
+    }
+    /**
+     * Setter for the type attribute
+     * @param name the type of the node
+     */
+    public void setType(String type) {
+	this.type = type;
     }
     
     /**
