@@ -12,7 +12,7 @@ public class driver {
 	DijkstraAlgorithm shortestPath = new DijkstraAlgorithm();
 	
 	// Instantiating a car with Fuel 50 and battery 50
-	Car hybrid = new Car(20, 30);
+	Car hybrid = new Car(100, 100);
 	
 	// Instantiating the nodes of the graph
 	Node a = new Node("A");
@@ -51,34 +51,6 @@ public class driver {
 	c.addAdjacent(e10);
 	e.addAdjacent(e11);
 	e.addAdjacent(e12);
-	
-
-	
-	hybrid.move(e);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	hybrid.move(f);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	hybrid.move(g);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	hybrid.move(a);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	hybrid.move(b);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	hybrid.move(c);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);	
-	hybrid.move(e);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	hybrid.move(f);
-	System.out.println("\nFuel - " + hybrid.fuel);
-	System.out.println("Battery - " + hybrid.battery);
-	System.out.println(hybrid.getCurrentPosition());
 	
 	
     }

@@ -1,51 +1,90 @@
 import java.util.Scanner;
 
+/**
+ * Class representing a Hybrid car which can move and select Fuel or Electric energy to move depending on its autonomy.
+ *
+ * @author A. La Fauci De Leo
+ *
+ */
 public class Car {
 
+    /** 
+     * What the car uses to move.
+     */
     String currentUsing = "fuel";
-    Node currentPosition = new Node("start");
+    /**
+     * The current position of the car which is Start by default.
+     */
+    Node currentPosition = new Node("Start");
+    /**
+     * The level of Fuel and battery.
+     */
     int fuel, battery;
+    /**
+     * Boolean flag which indicates if the car can move or not.
+     */
     boolean canMove = true;
 
     /**
-     * Method which will set the component the car will use
+     * Method which will set the component the car will use.
      */
     public void setComponent(String component) {
 	this.currentUsing = component;
     }
 
     /**
-     * Getter for the current component in use
+     * Getter for the current component in use.
      * 
-     * @return
+     * @return what the car is using to move
      */
     public String getComponent() {
 	return this.currentUsing;
     }
 
+    /**
+     * Getter method for the Current position
+     * @return the current position of the car.
+     */
     public Node getCurrentPosition() {
 	return this.currentPosition;
     }
 
+    /**
+     * Setter method which will set the Node were the car is.
+     * @param currentPosition the Node where the car will be.
+     */
     public void setCurrentPosition(Node currentPosition) {
 	this.currentPosition = currentPosition;
     }
 
-    /*
-     * Getters and Setters for Battery and Fuel
+    /**
+     * Getter Method for the Battery Level
+     * @return the battery level.
      */
     public int getBattery() {
 	return this.battery;
     }
 
+    /**
+     * Setter for the battery
+     * @param battery the battery level to set
+     */
     public void setBattery(int battery) {
 	this.battery = battery;
     }
 
+    /**
+     * Getter Method for the Fuel Level
+     * @return the fuel level.
+     */
     public int getFuel() {
 	return this.fuel;
     }
 
+    /**
+     * Setter for the Fuel
+     * @param battery the Fuel level to set
+     */
     public void setFuel(int fuel) {
 	this.fuel = fuel;
     }
