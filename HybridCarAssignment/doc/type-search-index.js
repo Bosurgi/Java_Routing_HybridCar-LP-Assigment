@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"Driver"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"Car"},{"p":"<Unnamed>","l":"DijkstraAlgorithm"},{"p":"<Unnamed>","l":"Driver"},{"p":"<Unnamed>","l":"Edge"},{"p":"<Unnamed>","l":"Node"}];updateSearchResults();
