@@ -178,6 +178,48 @@ public class Car {
 	}
 	else stop();
     }
+    
+    /**
+     * Method which will simulate re-charging or re-fueling the car
+     * TODO: Implementing it and test it
+     */
+    public void refuel() {
+	// Initialising the scanner to make it interactive.
+	Scanner sc = new Scanner(System.in);
+	String answer = sc.nextLine();
+
+	if (fuel <= 10 && currentPosition.type.toLowerCase() == "gas station"
+		|| currentPosition.type.toLowerCase() == "both") {
+	    System.out.printf("\nDo you want to refuel at %s: (y/n)", currentPosition);
+	    if (answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
+		setFuel(100);
+		System.out.println("\nCar Refueled");
+	    } else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
+		System.out.println("\nCar NOT refueled");
+	    } else {
+		System.out.println("\nInput not recognized. Retry.");
+		refuel();
+	    }
+
+	} // End of IF
+
+	if (battery <= 10 && currentPosition.type.toLowerCase() == "charge station"
+		|| currentPosition.type.toLowerCase() == "both") {
+	    System.out.printf("\nDo you want to recharge at %s: (y/n)", currentPosition);
+	    if (answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
+		setBattery(100);
+		System.out.println("\nCar Recharged");
+	    } else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
+		System.out.println("\nCar NOT recharged");
+	    } else {
+		System.out.println("\nInput not recognized. Retry.");
+		refuel();
+	    }
+	} // End of IF
+
+	// Closing scanner
+	sc.close();
+    } // End of method
 
     /**
      * Method which will override the current toString method to print the status of the car in a nicely formatted way
