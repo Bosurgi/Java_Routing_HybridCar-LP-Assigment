@@ -1,22 +1,31 @@
 import java.util.List;
+import java.util.Scanner;
 
 /**
- * Main method where the Knowledge base and the Graph is going to be build.
- * <br> This is going to used to execute the program and the algorithm to find the closes path.
+ * Main method where the Knowledge base and the Graph is going to be build. <br>
+ * This is going to used to execute the program and the algorithm to find the
+ * closes path.
  * 
  * @author A. La Fauci De Leo
  */
 public class driver {
 
     public static void main(String[] args) {
-	
+
+	// Initialising the variables path and weight
+	Integer weight = null;
+	List<Node> path = null;
+
+	// Instantiating the Scanner
+	Scanner sc = new Scanner(System.in);
 	// Instantiating the algorithm class
 	DijkstraAlgorithm shortestPath = new DijkstraAlgorithm();
-	
+
 	// Instantiating a car with Fuel 50 and battery 50
-	Car hybrid = new Car(50, 20);
-	
+	Car hybrid = new Car(30, 20);
+
 	// Instantiating the nodes of the graph
+
 	Node a = new Node("A");
 	Node b = new Node("B");
 	Node c = new Node("C");
@@ -25,7 +34,7 @@ public class driver {
 	Node f = new Node("F");
 	Node g = new Node("G");
 	Node start = new Node("Start");
-	
+
 	// Instantiating the Edges between nodes
 	Edge e1 = new Edge(start, f, 7);
 	Edge e2 = new Edge(start, e, 8);
@@ -39,7 +48,7 @@ public class driver {
 	Edge e10 = new Edge(c, d, 10);
 	Edge e11 = new Edge(e, d, 5);
 	Edge e12 = new Edge(e, c, 12);
-	
+
 	// Setting the adjacent nodes
 	start.addAdjacent(e1);
 	start.addAdjacent(e2);
@@ -53,25 +62,79 @@ public class driver {
 	c.addAdjacent(e10);
 	e.addAdjacent(e11);
 	e.addAdjacent(e12);
-	
+
 	// Calculating the shortest Path from where the car is to the nodes
 	shortestPath.calcPath(start);
 	
-	// The distance between Start and A
-	Integer weightStoA = a.getDistance();
-	
-	// Building the path from Start to Node A
-	List<Node> path = shortestPath.getPath(a);
-	
-	// Displaying the shortest path
-	System.out.println("**********************************************************\n");
-	System.out.printf("The shortest Path between %s and %s is distant %d units.\n", path.get(0), path.get(path.size() -1), weightStoA);
-	System.out.println("\n**********************************************************\n");
-	
-	
-	// Car can move through the path.
-	hybrid.move(path);
-	
+	// Prompting the user
+	System.out.println("Select a Node between A and G: ");
+	String input = sc.nextLine();
+	sc.close();
+
+	// Using the input
+	switch (input.toUpperCase()) {
+
+	case "A": {
+	    weight = a.getDistance();
+	    path = shortestPath.getPath(a);
+	    break;
+	}
+	case "B": {
+	    weight = b.getDistance();
+	    path = shortestPath.getPath(b);
+	    break;
+	}
+
+	case "C": {
+	    weight = c.getDistance();
+	    path = shortestPath.getPath(c);
+	    break;
+	}
+
+	case "D": {
+	    weight = d.getDistance();
+	    path = shortestPath.getPath(d);
+	    break;
+	}
+
+	case "E": {
+	    weight = e.getDistance();
+	    path = shortestPath.getPath(e);
+	    break;
+	}
+
+	case "F": {
+	    weight = f.getDistance();
+	    path = shortestPath.getPath(f);
+	    break;
+	}
+
+	case "G": {
+	    weight = g.getDistance();
+	    path = shortestPath.getPath(g);
+	    break;
+	}
+
+	} // End of Switch
+
+	try {
+
+	    // Displaying the shortest path
+	    System.out.println("************************************************************\n");
+	    System.out.printf("The shortest Path between %s and %s is distant %d units.\n", path.get(0),
+		    path.get(path.size() - 1), weight);
+	    System.out.printf("\n\tThe path to follow is: " + path + "\n");
+	    System.out.println("\n************************************************************\n");
+
+	    // Car can move through the path.
+	    hybrid.move(path);
+
+	} catch (Exception exception) {
+
+	    System.out.println("Error");
+
+	}
+
     }
 
-}
+} 

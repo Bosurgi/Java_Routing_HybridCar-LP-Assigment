@@ -141,7 +141,8 @@ public class Node implements Comparable<Node> {
      */
     @Override
     public int compareTo(Node o) {
-	/* It returns the value 0 if x == y;
+	/* 
+	 * It returns the value 0 if x == y;
 	 * a value less than 0 if x < y; 
 	 * and a value greater than 0 if x > y
 	 */
