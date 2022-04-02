@@ -17,13 +17,17 @@ import java.util.PriorityQueue;
  */
 public class DijkstraAlgorithm {
     
-    public void calcPath(Node startNode) {
+    /**
+     * Method which calculates the shortest path between the specified node based on the adjacent nodes.
+     * @param targetNode the node we want to calculate the distance from.
+     */
+    public void calcPath(Node targetNode) {
 	// The first node will have 0 as distance as it is the first and it will be visited because we are currently in it.
-	startNode.setDistance(0);
-	startNode.setExplored(true);
+	targetNode.setDistance(0);
+	targetNode.setExplored(true);
 	// Setting the Priority Queues and adding the first node to the list of Priority Queue
 	PriorityQueue<Node> pq = new PriorityQueue<Node>();
-	pq.add(startNode);
+	pq.add(targetNode);
 	
 	
 	//While loop which runs until the List of priority queue is empty.

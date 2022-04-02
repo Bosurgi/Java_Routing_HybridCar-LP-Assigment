@@ -56,7 +56,7 @@ public class Node implements Comparable<Node> {
     }
     /**
      * Setter for the type attribute
-     * @param name the type of the node
+     * @param type the type of the node
      */
     public void setType(String type) {
 	this.type = type;
@@ -88,7 +88,7 @@ public class Node implements Comparable<Node> {
 
     /**
      * Setter Method to set the list of current adjacent nodes to the specified one
-     * @param adjacentList the list of adjacent nodes.
+     * @param adjacentNodes the list of adjacent nodes.
      */
     public void setAdjacentNodes(List<Edge> adjacentNodes) {
         this.adjacentNodes = adjacentNodes;
@@ -161,7 +161,8 @@ public class Node implements Comparable<Node> {
      * Constructor of the Node class which creates an instance of
      * node taking Name as a parameter and creating a new list for storing
      * adjacent nodes.
-     * @param name
+     * 
+     * @param name the name of the Node
      */
     public Node(String name) {
 	this.name = name;

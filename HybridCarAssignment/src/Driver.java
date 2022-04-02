@@ -8,8 +8,12 @@ import java.util.Scanner;
  * 
  * @author A. La Fauci De Leo
  */
-public class driver {
+public class Driver {
 
+    /**
+     * Main method for the class driver
+     * @param args argument for the main method
+     */
     public static void main(String[] args) {
 
 	// Initialising the variables path and weight

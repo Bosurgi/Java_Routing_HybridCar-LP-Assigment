@@ -28,6 +28,7 @@ public class Car {
 
     /**
      * Method which will set the component the car will use.
+     * @param component the component to be set
      */
     public void setComponent(String component) {
 	this.currentUsing = component;
@@ -84,7 +85,7 @@ public class Car {
 
     /**
      * Setter for the Fuel
-     * @param battery the Fuel level to set
+     * @param fuel the Fuel level to set
      */
     public void setFuel(int fuel) {
 	this.fuel = fuel;
@@ -150,6 +151,10 @@ public class Car {
 	}
     }
 
+    /**
+     * Method which allows the car to move to a node
+     * @param nextNode the node where to move the car
+     */
     public void move(Node nextNode) {
 	if (canMove) {
 	    checkAutonomy();
@@ -230,8 +235,10 @@ public class Car {
 		this.battery, this.currentUsing, this.currentPosition);
     }
 
-    /*
+    /**
      * Constructor for the Class Car with two parameters, fuel and battery level
+     * @param fuel the fuel level of the car
+     * @param battery the battery level of the car
      */
     public Car(int fuel, int battery) {
 	this.fuel = fuel;
