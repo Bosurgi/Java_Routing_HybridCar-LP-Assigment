@@ -97,12 +97,13 @@ public class Car {
      */
     public void consumption() {
 
-	checkAutonomy();
-
-	if (this.currentUsing.toLowerCase() == "fuel") {
+	if (this.currentUsing.toLowerCase() == "fuel" && canMove) {
 	    setFuel(this.fuel - 10);
-	} else if (this.currentUsing.toLowerCase() == "battery") {
+	} else if (this.currentUsing.toLowerCase() == "battery" && canMove) {
 	    setBattery(this.battery - 10);
+	}
+	if(this.fuel == 0 && this.battery == 0) {
+	    canMove = false;
 	}
     }
 

@@ -52,20 +52,34 @@ public class driver {
 	e.addAdjacent(e11);
 	e.addAdjacent(e12);
 	
-	hybrid.move(a);
 
-	hybrid.move(c);
-	hybrid.move(b);
-	hybrid.move(e);
 	
+	hybrid.move(e);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
 	hybrid.move(f);
-	hybrid.move(e);
-	//TODO fix bug for car not moving moving.
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
+	hybrid.move(g);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
+	hybrid.move(a);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
+	hybrid.move(b);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
 	hybrid.move(c);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);	
+	hybrid.move(e);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
+	hybrid.move(f);
+	System.out.println("\nFuel - " + hybrid.fuel);
+	System.out.println("Battery - " + hybrid.battery);
+	System.out.println(hybrid.getCurrentPosition());
 	
-	
-	System.out.println(hybrid.fuel);
-	System.out.println(hybrid.battery);
 	
     }
 
