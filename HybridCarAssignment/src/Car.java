@@ -50,6 +50,9 @@ public class Car {
 	this.fuel = fuel;
     }
 
+    /**
+     * Method which allows the car to stop and not moving from the current position.
+     */
     public void stop() {
 	setCurrentPosition(getCurrentPosition());
 	System.out.println("\nWarning car can't move.\n");
@@ -102,6 +105,7 @@ public class Car {
 	} else if (this.currentUsing.toLowerCase() == "battery" && canMove) {
 	    setBattery(this.battery - 10);
 	}
+	// Checking if after consumption both are not empty. If they are car can't move.
 	if(this.fuel == 0 && this.battery == 0) {
 	    canMove = false;
 	}
@@ -119,7 +123,7 @@ public class Car {
     }
 
     /**
-     * Method which will override the current toString method
+     * Method which will override the current toString method to print the status of the car in a nicely formatted way
      */
     public String toString() {
 
