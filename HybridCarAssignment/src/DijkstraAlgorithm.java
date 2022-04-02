@@ -62,8 +62,8 @@ public class DijkstraAlgorithm {
     
     /**
      * Method to get the List of Nodes visited until the node is null.
-     * @param destination
-     * @return
+     * @param destination the Node to reach
+     * @return the path of nodes between the starting point and the destination.
      */
     public List<Node> getPath(Node destination) {
 	// Initialising a new List containing the Path

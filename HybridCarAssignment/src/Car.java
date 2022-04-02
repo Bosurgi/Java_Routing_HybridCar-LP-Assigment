@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -158,7 +159,25 @@ public class Car {
 	    consumption();
 	}
 	else stop();
-
+    }
+    
+    /**
+     * Variation of the Move method. Instead of a single Node it takes a List of nodes. <br>
+     * It then loops through the list and moves into each node of the Path.
+     * @param path the list of nodes forming the path.
+     */
+    public void move(List<Node> path) {
+	if (canMove) {
+	    for(Node node : path) {
+		// This prevents the car to move from the same node where it currently is.
+		if(node == path.get(0)) continue;
+		checkAutonomy();
+		System.out.printf("\nCar moved from %s to %s \n", currentPosition, node);
+		setCurrentPosition(node);
+		consumption();
+	    }
+	}
+	else stop();
     }
 
     /**

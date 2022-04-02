@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Main method where the Knowledge base and the Graph is going to be build.
  * <br> This is going to used to execute the program and the algorithm to find the closes path.
@@ -12,7 +14,7 @@ public class driver {
 	DijkstraAlgorithm shortestPath = new DijkstraAlgorithm();
 	
 	// Instantiating a car with Fuel 50 and battery 50
-	Car hybrid = new Car(100, 100);
+	Car hybrid = new Car(50, 20);
 	
 	// Instantiating the nodes of the graph
 	Node a = new Node("A");
@@ -52,6 +54,23 @@ public class driver {
 	e.addAdjacent(e11);
 	e.addAdjacent(e12);
 	
+	// Calculating the shortest Path from where the car is to the nodes
+	shortestPath.calcPath(start);
+	
+	// The distance between Start and A
+	Integer weightStoA = a.getDistance();
+	
+	// Building the path from Start to Node A
+	List<Node> path = shortestPath.getPath(a);
+	
+	// Displaying the shortest path
+	System.out.println("**********************************************************\n");
+	System.out.printf("The shortest Path between %s and %s is distant %d units.\n", path.get(0), path.get(path.size() -1), weightStoA);
+	System.out.println("\n**********************************************************\n");
+	
+	
+	// Car can move through the path.
+	hybrid.move(path);
 	
     }
 
