@@ -135,8 +135,7 @@ public class Car {
      * Method which simulates the consumption of Fuel or Battery depending on what
      * the vehicle is using. <br>
      * If it is using Fuel it will reduce fuel by 10 units by default between nodes.
-     * TODO: Modifying it with the actual distance between nodes. TODO: fix bug for
-     * moving and make the car stopping if both levels are 0.
+     * TODO: Modifying it with the actual distance between nodes.
      */
     public void consumption() {
 
