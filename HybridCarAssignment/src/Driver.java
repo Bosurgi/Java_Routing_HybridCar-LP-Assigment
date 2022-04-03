@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,6 +18,9 @@ public class Driver {
      * @param args argument for the main method
      */
     public static void main(String[] args) {
+	
+	// A list of nodes with Key Node and value type
+	HashMap<Node, String> nodesMap = new HashMap<>();
 
 	// Initialising the variables path and weight
 	Integer weight = null;
@@ -30,15 +36,42 @@ public class Driver {
 
 	// Instantiating the nodes of the graph
 
-	Node a = new Node("A");
-	Node b = new Node("B");
-	Node c = new Node("C");
-	Node d = new Node("D");
-	Node e = new Node("E");
-	Node f = new Node("F");
-	Node g = new Node("G");
+	Node a = new Node("A", "Charge Station");
+	Node b = new Node("B", "Gas Station");
+	Node c = new Node("C", "Both");
+	Node d = new Node("D", "Charge Station");
+	Node e = new Node("E", "Gas Station");
+	Node f = new Node("F", "Gas Station");
+	Node g = new Node("G", "Both");
 	Node start = new Node("Start");
 
+	// Adding the nodes to the list
+	nodesMap.put(a, "charge station");
+	nodesMap.put(b, "gas station");
+	nodesMap.put(c, "both");
+	nodesMap.put(d, "charge station");
+	nodesMap.put(e, "gas station");
+	nodesMap.put(f, "gas station");
+	nodesMap.put(g, "both");
+	
+	// Creating lists of Gas Station or Charge station
+	List<Node> gasStations = new ArrayList<Node>();
+	List<Node> chargeStations = new ArrayList<Node>();
+	List<Node> both = new ArrayList<Node>();
+	
+	for(Map.Entry<Node, String> entry : nodesMap.entrySet()) {
+	    
+	    if(entry.getValue() == "charge station") {
+		chargeStations.add(entry.getKey());
+	    }
+	    else if(entry.getValue() == "gas station") {
+		gasStations.add(entry.getKey());
+	    }
+	    else {
+		both.add(entry.getKey());
+	    }
+	}
+			
 	// Instantiating the Edges between nodes
 	Edge e1 = new Edge(start, f, 7);
 	Edge e2 = new Edge(start, e, 8);
