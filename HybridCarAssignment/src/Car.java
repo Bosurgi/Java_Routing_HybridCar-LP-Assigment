@@ -2,14 +2,15 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Class representing a Hybrid car which can move and select Fuel or Electric energy to move depending on its autonomy.
+ * Class representing a Hybrid car which can move and select Fuel or Electric
+ * energy to move depending on its autonomy.
  *
  * @author A. La Fauci De Leo
  *
  */
 public class Car {
 
-    /** 
+    /**
      * What the car uses to move.
      */
     String currentUsing = "fuel";
@@ -28,6 +29,7 @@ public class Car {
 
     /**
      * Method which will set the component the car will use.
+     * 
      * @param component the component to be set
      */
     public void setComponent(String component) {
@@ -45,6 +47,7 @@ public class Car {
 
     /**
      * Getter method for the Current position
+     * 
      * @return the current position of the car.
      */
     public Node getCurrentPosition() {
@@ -53,6 +56,7 @@ public class Car {
 
     /**
      * Setter method which will set the Node were the car is.
+     * 
      * @param currentPosition the Node where the car will be.
      */
     public void setCurrentPosition(Node currentPosition) {
@@ -61,6 +65,7 @@ public class Car {
 
     /**
      * Getter Method for the Battery Level
+     * 
      * @return the battery level.
      */
     public int getBattery() {
@@ -69,6 +74,7 @@ public class Car {
 
     /**
      * Setter for the battery
+     * 
      * @param battery the battery level to set
      */
     public void setBattery(int battery) {
@@ -77,6 +83,7 @@ public class Car {
 
     /**
      * Getter Method for the Fuel Level
+     * 
      * @return the fuel level.
      */
     public int getFuel() {
@@ -85,6 +92,7 @@ public class Car {
 
     /**
      * Setter for the Fuel
+     * 
      * @param fuel the Fuel level to set
      */
     public void setFuel(int fuel) {
@@ -109,12 +117,12 @@ public class Car {
 	if (fuel > battery && battery == 0) {
 
 	    setComponent("fuel");
-	    System.out.printf("\nCar is moving with %s\n", getComponent());
+	    System.out.printf("\nCar is using %s\n", getComponent());
 	}
 
 	else if (battery > fuel && fuel == 0) {
 	    setComponent("battery");
-	    System.out.printf("\nCar is moving with %s\n", getComponent());
+	    System.out.printf("\nCar is using %s\n", getComponent());
 	}
 
 	else if (battery <= 0 && fuel <= 0) {
@@ -123,12 +131,12 @@ public class Car {
 
 	else if (fuel <= 20) {
 	    setComponent("battery");
-	    System.out.printf("\nCar is moving with %s\n", getComponent());
+	    System.out.printf("\nCar is using %s\n", getComponent());
 	}
 
 	else if (battery <= 20) {
 	    setComponent("fuel");
-	    System.out.printf("\nCar is moving with %s\n", getComponent());
+	    System.out.printf("\nCar is using %s\n", getComponent());
 	}
     }
 
@@ -146,47 +154,86 @@ public class Car {
 	    setBattery(this.battery - 10);
 	}
 	// Checking if after consumption both are not empty. If they are car can't move.
-	if(this.fuel == 0 && this.battery == 0) {
+	if (this.fuel == 0 && this.battery == 0) {
 	    canMove = false;
 	}
     }
 
     /**
      * Method which allows the car to move to a node
+     * 
      * @param nextNode the node where to move the car
      */
     public void move(Node nextNode) {
 	if (canMove) {
 	    checkAutonomy();
-	    System.out.printf("\nCar moved from %s to %s \n", currentPosition, nextNode);
-	    setCurrentPosition(nextNode);
-	    consumption();
-	}
-	else stop();
+	    if (currentPosition == nextNode) {
+		System.out.printf("Car stays in %s", currentPosition);
+	    } else {
+		System.out.printf("\nCar moved from %s to %s \n", currentPosition, nextNode);
+		setCurrentPosition(nextNode);
+		consumption();
+	    }
+	} else
+	    stop();
     }
-    
+
     /**
-     * Variation of the Move method. Instead of a single Node it takes a List of nodes. <br>
+     * Variation of the Move method. Instead of a single Node it takes a List of
+     * nodes. <br>
      * It then loops through the list and moves into each node of the Path.
+     * 
      * @param path the list of nodes forming the path.
      */
     public void move(List<Node> path) {
 	if (canMove) {
-	    for(Node node : path) {
+	    for (Node node : path) {
 		// This prevents the car to move from the same node where it currently is.
-		if(node == path.get(0)) continue;
+		if (node == path.get(0))
+		    continue;
 		checkAutonomy();
-		System.out.printf("\nCar moved from %s to %s \n", currentPosition, node);
-		setCurrentPosition(node);
-		consumption();
+		// If the current position is different from the node the car will move.
+
+		if (currentPosition == node) {
+		    System.out.printf("Car stays in %s", currentPosition);
+		}
+
+		else if (currentPosition != node) {
+
+		    System.out.printf("\nCar moved from %s to %s \n", currentPosition, node);
+		    setCurrentPosition(node);
+		    consumption();
+		}
+
+	    } // End of For
+
+	} // End of If
+	else
+	    stop();
+    } // End of Method
+
+    /**
+     * Method to find the route to refill the tank or battery when level are low.
+     * 
+     * @param nodeTypes a list of nodes depending on what is needed
+     */
+    public void findRoute(List<Node> nodeTypes) {
+	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
+	dijkstra.calcPath(currentPosition);
+	System.out.println("\n******* Calculating Fastest Route *******\n");
+
+	for (Node node : nodeTypes) {
+	    if (node == nodeTypes.get(0))
+		continue;
+	    if (fuel >= node.getDistance() || battery >= node.getDistance()) {
+		move(node);
 	    }
 	}
-	else stop();
     }
-    
+
     /**
-     * Method which will simulate re-charging or re-fueling the car
-     * TODO: Implementing it and test it
+     * Method which will simulate re-charging or re-fueling the car TODO:
+     * Implementing it and test it
      */
     public void refuel() {
 	// Initialising the scanner to make it interactive.
@@ -227,7 +274,8 @@ public class Car {
     } // End of method
 
     /**
-     * Method which will override the current toString method to print the status of the car in a nicely formatted way
+     * Method which will override the current toString method to print the status of
+     * the car in a nicely formatted way
      */
     public String toString() {
 
@@ -237,7 +285,8 @@ public class Car {
 
     /**
      * Constructor for the Class Car with two parameters, fuel and battery level
-     * @param fuel the fuel level of the car
+     * 
+     * @param fuel    the fuel level of the car
      * @param battery the battery level of the car
      */
     public Car(int fuel, int battery) {
