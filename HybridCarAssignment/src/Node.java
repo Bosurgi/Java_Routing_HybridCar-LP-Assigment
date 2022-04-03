@@ -170,4 +170,17 @@ public class Node implements Comparable<Node> {
     
     } // End of Constructor
     
+    /**
+     * Constructor of the Node class which creates an instance of
+     * node taking Name as a parameter and creating a new list for storing
+     * adjacent nodes and also a type of node.
+     * @param name the name of the Node
+     * @param type the type of the Node
+     */
+    public Node(String name, String type) {
+	this.name = name;
+	this.adjacentNodes = new ArrayList();
+	this.type = type;
+    }
+    
 } // End of class
