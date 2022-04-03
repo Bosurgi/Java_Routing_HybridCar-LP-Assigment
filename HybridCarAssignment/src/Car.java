@@ -220,7 +220,7 @@ public class Car {
     public void findRoute(List<Node> nodeTypes) {
 	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
 	dijkstra.calcPath(currentPosition);
-	System.out.println("\n******* Calculating Fastest Route *******\n");
+	System.out.println("\n******* Low Autonomy - Calculating Fastest Route *******\n");
 
 	for (Node node : nodeTypes) {
 	    if (node == nodeTypes.get(0))
@@ -232,8 +232,8 @@ public class Car {
     }
 
     /**
-     * Method which will simulate re-charging or re-fueling the car TODO:
-     * Implementing it and test it
+     * Method which will simulate re-charging or re-fueling the car 
+     * TODO: Implementing it and test it
      */
     public void refuel() {
 	// Initialising the scanner to make it interactive.

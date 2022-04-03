@@ -166,6 +166,9 @@ public class Driver {
 	    // Car can move through the path.
 	    hybrid.move(path);
 	    
+
+	     // Checking if the car needs to find the nearest point to refuel or recharge
+
 	    if(hybrid.fuel <= 20 && hybrid.battery <= 20) {
 		hybrid.findRoute(both);
 	    }
