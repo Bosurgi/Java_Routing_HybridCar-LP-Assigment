@@ -143,15 +143,15 @@ public class Car {
     /**
      * Method which simulates the consumption of Fuel or Battery depending on what
      * the vehicle is using. <br>
-     * If it is using Fuel it will reduce fuel by 10 units by default between nodes.
-     * TODO: Modifying it with the actual distance between nodes.
+     * If it is using Fuel it will reduce fuel by the distance between nodes.
+     * 
      */
     public void consumption(Node nextNode) {
 
 	if (this.currentUsing.toLowerCase() == "fuel" && canMove) {
-	    setFuel(this.fuel - nextNode.getDistance());
+	    setFuel(this.fuel - (nextNode.getDistance() - nextNode.getPrevious().getDistance()));
 	} else if (this.currentUsing.toLowerCase() == "battery" && canMove) {
-	    setBattery(this.battery - nextNode.getDistance());
+	    setBattery(this.battery - (nextNode.getDistance() - nextNode.getPrevious().getDistance()));
 	}
 	// Checking if after consumption both are not empty. If they are car can't move.
 	if (this.fuel == 0 && this.battery == 0) {

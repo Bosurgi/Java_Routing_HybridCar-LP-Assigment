@@ -165,6 +165,8 @@ public class Driver {
 
 	    // Car can move through the path.
 	    hybrid.move(path);
+	    System.out.println("Battery: " + hybrid.battery);
+	    System.out.println("Fuel: " + hybrid.fuel);
 	    
 
 	     // Checking if the car needs to find the nearest point to refuel or recharge
