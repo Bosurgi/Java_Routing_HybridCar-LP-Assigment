@@ -31,7 +31,7 @@ public class Driver {
 	// Instantiating the algorithm class
 	DijkstraAlgorithm shortestPath = new DijkstraAlgorithm();
 
-	// Instantiating a car with Fuel 50 and battery 50
+	// Instantiating a car with Fuel 30 and battery 20
 	Car hybrid = new Car(30, 20);
 
 	// Instantiating the nodes of the graph

@@ -146,12 +146,12 @@ public class Car {
      * If it is using Fuel it will reduce fuel by 10 units by default between nodes.
      * TODO: Modifying it with the actual distance between nodes.
      */
-    public void consumption() {
+    public void consumption(Node nextNode) {
 
 	if (this.currentUsing.toLowerCase() == "fuel" && canMove) {
-	    setFuel(this.fuel - 10);
+	    setFuel(this.fuel - nextNode.getDistance());
 	} else if (this.currentUsing.toLowerCase() == "battery" && canMove) {
-	    setBattery(this.battery - 10);
+	    setBattery(this.battery - nextNode.getDistance());
 	}
 	// Checking if after consumption both are not empty. If they are car can't move.
 	if (this.fuel == 0 && this.battery == 0) {
@@ -172,7 +172,7 @@ public class Car {
 	    } else {
 		System.out.printf("\nCar moved from %s to %s \n", currentPosition, nextNode);
 		setCurrentPosition(nextNode);
-		consumption();
+		consumption(nextNode);
 	    }
 	} else
 	    stop();
@@ -202,7 +202,7 @@ public class Car {
 
 		    System.out.printf("\nCar moved from %s to %s \n", currentPosition, node);
 		    setCurrentPosition(node);
-		    consumption();
+		    consumption(node);
 		}
 
 	    } // End of For
