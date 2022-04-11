@@ -8,6 +8,7 @@ import java.util.Scanner;
  * @author A. La Fauci De Leo
  *
  */
+
 public class Car {
 
     /**
@@ -220,57 +221,58 @@ public class Car {
     public void findRoute(List<Node> nodeTypes) {
 	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
 	dijkstra.calcPath(currentPosition);
+	Node closestRefuel = nodeTypes.get(0);
+	List<Node> path = dijkstra.getPath(closestRefuel);
 	System.out.println("\n******* Low Autonomy - Calculating Fastest Route *******\n");
 
-	for (Node node : nodeTypes) {
-	    if (node == nodeTypes.get(0))
-		continue;
-	    if (fuel >= node.getDistance() || battery >= node.getDistance()) {
-		move(node);
-	    }
-	}
+	if (fuel >= (closestRefuel.getDistance() - closestRefuel.previous.getDistance())
+		|| battery >= (closestRefuel.getDistance() - closestRefuel.previous.getDistance())) {
+	    move(path);
+	    refuel();
+
+	} else
+	    stop();
     }
 
     /**
-     * Method which will simulate re-charging or re-fueling the car 
-     * TODO: Implementing it and test it
+     * Method which will simulate re-charging or re-fueling the car.
      */
     public void refuel() {
-	// Initialising the scanner to make it interactive.
-	Scanner sc = new Scanner(System.in);
-	String answer = sc.nextLine();
+	System.out.println("\nDo you want to refuel at " + currentPosition + ": (y/n)\n");
+	Scanner scanner = new Scanner(System.in);
+	String answer = scanner.nextLine();
+	
+	// Wrapp the if clauses in a try catch to prevent errors.
+	try {
+	    // If answer is yes then charge or refuel accordingly to the location the car is in
+	    if (answer.toLowerCase().equals("yes") || answer.toLowerCase().equals("y")) {
 
-	if (fuel <= 10 && currentPosition.type.toLowerCase() == "gas station"
-		|| currentPosition.type.toLowerCase() == "both") {
-	    System.out.printf("\nDo you want to refuel at %s: (y/n)", currentPosition);
-	    if (answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
-		setFuel(100);
-		System.out.println("\nCar Refueled");
-	    } else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
-		System.out.println("\nCar NOT refueled");
-	    } else {
-		System.out.println("\nInput not recognized. Retry.");
-		refuel();
+		if (currentPosition.type.toLowerCase().equals("gas station")) {
+		    setFuel(100);
+		    System.out.println("Fuel refuelled: " + fuel + "%");
+		} else if (currentPosition.type.toLowerCase().equals("charge station")) {
+		    setBattery(100);
+		    System.out.println("Battery recharged: " + battery + "%");
+		} else if (currentPosition.type.toLowerCase().equals("both")) {
+		    setFuel(100);
+		    setBattery(100);
+		    System.out.println("Battery and Fuel recharged: 100%");
+		}
+
+	    } // End of IF
+	    else if (answer.toLowerCase().equals("no") || answer.toLowerCase().equals("n")) {
+		System.out.println("Car not recharged or refuelled.");
 	    }
+	}
 
-	} // End of IF
+	catch (Exception e) {
+	    System.out.println("Invalid input.");
+	    refuel();
+	}
 
-	if (battery <= 10 && currentPosition.type.toLowerCase() == "charge station"
-		|| currentPosition.type.toLowerCase() == "both") {
-	    System.out.printf("\nDo you want to recharge at %s: (y/n)", currentPosition);
-	    if (answer.toLowerCase() == "y" || answer.toLowerCase() == "yes") {
-		setBattery(100);
-		System.out.println("\nCar Recharged");
-	    } else if (answer.toLowerCase() == "n" || answer.toLowerCase() == "no") {
-		System.out.println("\nCar NOT recharged");
-	    } else {
-		System.out.println("\nInput not recognized. Retry.");
-		refuel();
-	    }
-	} // End of IF
+	// Closing the scanner
+	scanner.close();
 
-	// Closing scanner
-	sc.close();
     } // End of method
 
     /**

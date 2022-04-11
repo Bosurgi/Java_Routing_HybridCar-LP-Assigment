@@ -15,10 +15,11 @@ public class Driver {
 
     /**
      * Main method for the class driver
+     * 
      * @param args argument for the main method
      */
     public static void main(String[] args) {
-	
+
 	// A list of nodes with Key Node and value type
 	HashMap<Node, String> nodesMap = new HashMap<>();
 
@@ -53,25 +54,23 @@ public class Driver {
 	nodesMap.put(e, "gas station");
 	nodesMap.put(f, "gas station");
 	nodesMap.put(g, "both");
-	
+
 	// Creating lists of Gas Station or Charge station
 	List<Node> gasStations = new ArrayList<Node>();
 	List<Node> chargeStations = new ArrayList<Node>();
 	List<Node> both = new ArrayList<Node>();
-	
-	for(Map.Entry<Node, String> entry : nodesMap.entrySet()) {
-	    
-	    if(entry.getValue() == "charge station") {
+
+	for (Map.Entry<Node, String> entry : nodesMap.entrySet()) {
+
+	    if (entry.getValue() == "charge station") {
 		chargeStations.add(entry.getKey());
-	    }
-	    else if(entry.getValue() == "gas station") {
+	    } else if (entry.getValue() == "gas station") {
 		gasStations.add(entry.getKey());
-	    }
-	    else {
+	    } else {
 		both.add(entry.getKey());
 	    }
 	}
-			
+
 	// Instantiating the Edges between nodes
 	Edge e1 = new Edge(start, f, 7);
 	Edge e2 = new Edge(start, e, 8);
@@ -102,11 +101,10 @@ public class Driver {
 
 	// Calculating the shortest Path from where the car is to the nodes
 	shortestPath.calcPath(start);
-	
+
 	// Prompting the user
 	System.out.println("Select a Node between A and G: ");
 	String input = sc.nextLine();
-	sc.close();
 
 	// Using the input
 	switch (input.toUpperCase()) {
@@ -153,7 +151,7 @@ public class Driver {
 	}
 
 	} // End of Switch
-
+	
 	try {
 
 	    // Displaying the shortest path
@@ -167,29 +165,28 @@ public class Driver {
 	    hybrid.move(path);
 	    System.out.println("Battery: " + hybrid.battery);
 	    System.out.println("Fuel: " + hybrid.fuel);
-	    
 
-	     // Checking if the car needs to find the nearest point to refuel or recharge
+	    // Checking if the car needs to find the nearest point to refuel or recharge
 
-	    if(hybrid.fuel <= 20 && hybrid.battery <= 20) {
+	    if (hybrid.fuel <= 20 && hybrid.battery <= 20) {
 		hybrid.findRoute(both);
 	    }
-	    
-	    else if(hybrid.fuel <= 20) {
+
+	    else if (hybrid.fuel <= 20) {
 		hybrid.findRoute(gasStations);
 	    }
-	    
-	    else if(hybrid.battery <= 20) {
+
+	    else if (hybrid.battery <= 20) {
 		hybrid.findRoute(chargeStations);
 	    }
-	    
 
 	} catch (Exception exception) {
 
 	    System.out.println("Error");
 
 	}
-
+	// Closing scanner
+	sc.close();
     }
 
-} 
+}
