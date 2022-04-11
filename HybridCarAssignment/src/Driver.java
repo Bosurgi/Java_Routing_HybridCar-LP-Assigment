@@ -166,7 +166,7 @@ public class Driver {
 	    System.out.println("Battery: " + hybrid.battery);
 	    System.out.println("Fuel: " + hybrid.fuel);
 
-	    // Checking if the car needs to find the nearest point to refuel or recharge
+	    // Checking if the car needs to find the nearest point to refuel or re-charge
 
 	    if (hybrid.fuel <= 20 && hybrid.battery <= 20) {
 		hybrid.findRoute(both);
