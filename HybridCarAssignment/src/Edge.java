@@ -4,7 +4,7 @@
  * <br> In other terms an Edge is a Path between two nodes.
  * 
  * @author A. La Fauci De Leo
- * Adapted from Mandliya(2020)
+ * Adapted from Mandliya(2017)
  */
 
 public class Edge {

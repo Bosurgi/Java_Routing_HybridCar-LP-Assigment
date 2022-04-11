@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
  * <br> It also allows to visit one Node only once to avoid cycles in the Graph.
  * 
  * @author A. La Fauci De Leo
- * Adapted from Mandliya(2020)
+ * Adapted from Mandliya(2017)
  */
 public class DijkstraAlgorithm {
     

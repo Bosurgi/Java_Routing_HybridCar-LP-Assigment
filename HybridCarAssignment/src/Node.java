@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * <br> It also represent a point between edges.
  * 
  * @author A. La Fauci De Leo
- * Adapted from Mandliya(2020)
+ * Adapted from Mandliya(2017)
  */
 public class Node implements Comparable<Node> {
     
