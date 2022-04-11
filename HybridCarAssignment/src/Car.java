@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -219,11 +220,33 @@ public class Car {
      * @param nodeTypes a list of nodes depending on what is needed
      */
     public void findRoute(List<Node> nodeTypes) {
+	// Initialising Dijkstra's
 	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
+	// Calculating the Path from the Current Position of the car
 	dijkstra.calcPath(currentPosition);
+	// The closest charge point or gas station will be the first node of the list
 	Node closestRefuel = nodeTypes.get(0);
+	// The path to follow to reach the place.
 	List<Node> path = dijkstra.getPath(closestRefuel);
-	System.out.println("\n******* Low Autonomy - Calculating Fastest Route *******\n");
+	List<Node> pathToPrint = new ArrayList<Node>();
+	
+	// For loop to populate the list with only the remaining Nodes
+	for(Node node : path) {
+	    // Excluding the first element of the list
+	    if(node == path.get(0)) {
+		continue;
+	    }
+	    // Excluding the current position
+	    if(currentPosition == node) {
+		continue;
+	    }
+	    // Adding the new node to the Destination
+	    pathToPrint.add(node);
+	}
+	
+	System.out.println("\n********** Low Autonomy - Calculating Fastest Route **********\n");
+	System.out.println("\t\tPath to the closest point: " + pathToPrint + "\n");
+	System.out.println("**************************************************************");
 
 	if (fuel >= (closestRefuel.getDistance() - closestRefuel.previous.getDistance())
 		|| battery >= (closestRefuel.getDistance() - closestRefuel.previous.getDistance())) {
