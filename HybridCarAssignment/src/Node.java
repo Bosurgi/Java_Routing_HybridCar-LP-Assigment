@@ -179,7 +179,7 @@ public class Node implements Comparable<Node> {
      */
     public Node(String name, String type) {
 	this.name = name;
-	this.adjacentNodes = new ArrayList();
+	this.adjacentNodes = new ArrayList<Edge>();
 	this.type = type;
     }
     
