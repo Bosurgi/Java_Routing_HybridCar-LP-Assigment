@@ -19,7 +19,7 @@ public class Car {
     /**
      * The current position of the car which is Start by default.
      */
-    Node currentPosition = new Node("Start");
+    Node currentPosition;
     /**
      * The level of Fuel and battery.
      */
@@ -147,6 +147,7 @@ public class Car {
      * the vehicle is using. <br>
      * If it is using Fuel it will reduce fuel by the distance between nodes.
      * 
+     * @param nextNode the node where the car is going to move
      */
     public void consumption(Node nextNode) {
 
@@ -198,9 +199,7 @@ public class Car {
 
 		if (currentPosition == node) {
 		    System.out.printf("Car stays in %s", currentPosition);
-		}
-
-		else if (currentPosition != node) {
+		} else if (currentPosition != node) {
 
 		    System.out.printf("\nCar moved from %s to %s \n", currentPosition, node);
 		    setCurrentPosition(node);
@@ -222,34 +221,42 @@ public class Car {
     public void findRoute(List<Node> nodeTypes) {
 	// Initialising Dijkstra's
 	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
+	
 	// Calculating the Path from the Current Position of the car
 	dijkstra.calcPath(currentPosition);
+	
 	// The closest charge point or gas station will be the first node of the list
 	Node closestRefuel = nodeTypes.get(0);
+	
 	// The path to follow to reach the place.
 	List<Node> path = dijkstra.getPath(closestRefuel);
 	List<Node> pathToPrint = new ArrayList<Node>();
-	
+
 	// For loop to populate the list with only the remaining Nodes
-	for(Node node : path) {
+	for (Node node : path) {
 	    // Excluding the first element of the list
-	    if(node == path.get(0)) {
+	    if (node == path.get(0)) {
 		continue;
 	    }
 	    // Excluding the current position
-	    if(currentPosition == node) {
+	    if (currentPosition == node) {
 		continue;
 	    }
 	    // Adding the new node to the Destination
 	    pathToPrint.add(node);
 	}
-	
+
 	System.out.println("\n********** Low Autonomy - Calculating Fastest Route **********\n");
 	System.out.println("\t\tPath to the closest point: " + pathToPrint + "\n");
 	System.out.println("**************************************************************");
 
-	if (fuel >= (closestRefuel.getDistance() - closestRefuel.previous.getDistance())
-		|| battery >= (closestRefuel.getDistance() - closestRefuel.previous.getDistance())) {
+	// In case there's only one node we exclude the previous node which will be null
+	int newDistance = closestRefuel.previous != null
+		? closestRefuel.getDistance() - closestRefuel.previous.getDistance()
+		: closestRefuel.getDistance();
+
+	// If the fuel or battery are enough to move to the new place
+	if (fuel >= (newDistance) || battery >= (newDistance)) {
 	    move(path);
 	    refuel();
 
@@ -258,16 +265,17 @@ public class Car {
     }
 
     /**
-     * Method which will simulate re-charging or re-fueling the car.
+     * Method which will simulate re-charging or re-fuelling the car.
      */
     public void refuel() {
 	System.out.println("\nDo you want to refuel at " + currentPosition + ": (y/n)\n");
 	Scanner scanner = new Scanner(System.in);
 	String answer = scanner.nextLine();
-	
-	// Wrapp the if clauses in a try catch to prevent errors.
+
+	// Wrap the if clauses in a try catch to prevent errors.
 	try {
-	    // If answer is yes then charge or refuel accordingly to the location the car is in
+	    // If answer is yes then charge or refuel accordingly to the location the car is
+	    // in
 	    if (answer.toLowerCase().equals("yes") || answer.toLowerCase().equals("y")) {
 
 		if (currentPosition.type.toLowerCase().equals("gas station")) {

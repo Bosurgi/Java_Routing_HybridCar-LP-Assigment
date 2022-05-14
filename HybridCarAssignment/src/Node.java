@@ -103,6 +103,15 @@ public class Node implements Comparable<Node> {
     }
     
     /**
+     * Wrapper method to add Adjacent nodes manually instantiating a new edge from the current node
+     * @param node the node is going to be added
+     * @param distance the distance needed for the edge
+     */
+    public void addAdjacentNode(Node node, int distance) {
+	this.addAdjacent(new Edge(this, node, distance));
+    }
+    
+    /**
      * Getter method for the attribute previous node
      * @return the node visited previously
      */

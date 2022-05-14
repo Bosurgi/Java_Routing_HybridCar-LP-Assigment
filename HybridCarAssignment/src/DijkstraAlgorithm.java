@@ -24,13 +24,15 @@ public class DijkstraAlgorithm {
     public void calcPath(Node targetNode) {
 	// The first node will have 0 as distance as it is the first and it will be visited because we are currently in it.
 	targetNode.setDistance(0);
+	// Setting the previous node as it will be the first
+	targetNode.setPrevious(null);
 	targetNode.setExplored(true);
 	// Setting the Priority Queues and adding the first node to the list of Priority Queue
 	PriorityQueue<Node> pq = new PriorityQueue<Node>();
 	pq.add(targetNode);
 	
 	
-	//While loop which runs until the List of priority queue is empty.
+	// While loop which runs until the List of priority queue is empty.
 	while(pq.isEmpty() == false) {
 	    // Taking the element from the List
 	    Node currentNode = pq.poll();

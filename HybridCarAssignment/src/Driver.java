@@ -34,9 +34,12 @@ public class Driver {
 
 	// Instantiating a car with Fuel 30 and battery 20
 	Car hybrid = new Car(30, 20);
+	
 
 	// Instantiating the nodes of the graph
 
+	List<Node> allNodes = new ArrayList<Node>();
+	
 	Node a = new Node("A", "Charge Station");
 	Node b = new Node("B", "Gas Station");
 	Node c = new Node("C", "Both");
@@ -45,6 +48,19 @@ public class Driver {
 	Node f = new Node("F", "Gas Station");
 	Node g = new Node("G", "Both");
 	Node start = new Node("Start");
+	
+	// List for all nodes present in the Knowledge base
+	allNodes.add(a);
+	allNodes.add(b);
+	allNodes.add(c);
+	allNodes.add(d);
+	allNodes.add(e);
+	allNodes.add(f);
+	allNodes.add(g);
+	allNodes.add(start);
+	
+	// Setting the car's current position to Start
+	hybrid.setCurrentPosition(start);
 
 	// Adding the nodes to the list
 	nodesMap.put(a, "charge station");
@@ -71,33 +87,30 @@ public class Driver {
 	    }
 	}
 
-	// Instantiating the Edges between nodes
-	Edge e1 = new Edge(start, f, 7);
-	Edge e2 = new Edge(start, e, 8);
-	Edge e3 = new Edge(f, g, 6);
-	Edge e4 = new Edge(f, b, 9);
-	Edge e5 = new Edge(g, b, 10);
-	Edge e6 = new Edge(g, a, 17);
-	Edge e7 = new Edge(a, c, 13);
-	Edge e8 = new Edge(a, b, 6);
-	Edge e9 = new Edge(b, c, 15);
-	Edge e10 = new Edge(c, d, 10);
-	Edge e11 = new Edge(e, d, 5);
-	Edge e12 = new Edge(e, c, 12);
-
 	// Setting the adjacent nodes
-	start.addAdjacent(e1);
-	start.addAdjacent(e2);
-	f.addAdjacent(e3);
-	f.addAdjacent(e4);
-	g.addAdjacent(e5);
-	g.addAdjacent(e6);
-	a.addAdjacent(e7);
-	a.addAdjacent(e8);
-	b.addAdjacent(e9);
-	c.addAdjacent(e10);
-	e.addAdjacent(e11);
-	e.addAdjacent(e12);
+	start.addAdjacentNode(f, 7);
+	start.addAdjacentNode(e, 8);
+	f.addAdjacentNode(g, 6);
+	f.addAdjacentNode(b, 9);
+	g.addAdjacentNode(f, 6);
+	g.addAdjacentNode(b, 10);
+	g.addAdjacentNode(a, 17);
+	a.addAdjacentNode(b, 6);
+	a.addAdjacentNode(c, 13);
+	a.addAdjacentNode(g, 17);
+	b.addAdjacentNode(a, 6);
+	b.addAdjacentNode(g, 10);
+	b.addAdjacentNode(f, 9);
+	b.addAdjacentNode(c, 15);
+	c.addAdjacentNode(a, 13);
+	c.addAdjacentNode(b, 15);
+	c.addAdjacentNode(d, 10);
+	c.addAdjacentNode(e, 12);
+	d.addAdjacentNode(e, 5);
+	d.addAdjacentNode(c, 10);
+	e.addAdjacentNode(d, 5);
+	e.addAdjacentNode(c, 12);
+
 
 	// Calculating the shortest Path from where the car is to the nodes
 	shortestPath.calcPath(start);
@@ -152,8 +165,7 @@ public class Driver {
 
 	} // End of Switch
 	
-	try {
-
+	try {   
 	    // Displaying the shortest path
 	    System.out.println("************************************************************\n");
 	    System.out.printf("The shortest Path between %s and %s is distant %d units.\n", path.get(0),
@@ -167,7 +179,13 @@ public class Driver {
 	    System.out.println("Fuel: " + hybrid.fuel);
 
 	    // Checking if the car needs to find the nearest point to refuel or re-charge
-
+	    
+	    // Resetting all nodes distances to calculate them again from where the car is
+	    for(Node node : allNodes) {
+		node.setDistance(Integer.MAX_VALUE);
+		node.explored = false;
+	    }
+	    
 	    if (hybrid.fuel <= 20 && hybrid.battery <= 20) {
 		hybrid.findRoute(both);
 	    }
@@ -182,7 +200,8 @@ public class Driver {
 
 	} catch (Exception exception) {
 
-	    System.out.println("Error");
+	    // In case of errors it will print what exception was
+	    System.out.println("Exception" + exception.getMessage()+ exception.getStackTrace());
 
 	}
 	// Closing scanner
