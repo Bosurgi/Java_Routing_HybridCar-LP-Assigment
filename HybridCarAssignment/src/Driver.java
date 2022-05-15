@@ -34,12 +34,10 @@ public class Driver {
 
 	// Instantiating a car with Fuel 30 and battery 20
 	Car hybrid = new Car(30, 20);
-	
 
 	// Instantiating the nodes of the graph
-
 	List<Node> allNodes = new ArrayList<Node>();
-	
+
 	Node a = new Node("A", "Charge Station");
 	Node b = new Node("B", "Gas Station");
 	Node c = new Node("C", "Both");
@@ -48,7 +46,7 @@ public class Driver {
 	Node f = new Node("F", "Gas Station");
 	Node g = new Node("G", "Both");
 	Node start = new Node("Start");
-	
+
 	// List for all nodes present in the Knowledge base
 	allNodes.add(a);
 	allNodes.add(b);
@@ -58,7 +56,7 @@ public class Driver {
 	allNodes.add(f);
 	allNodes.add(g);
 	allNodes.add(start);
-	
+
 	// Setting the car's current position to Start
 	hybrid.setCurrentPosition(start);
 
@@ -110,7 +108,6 @@ public class Driver {
 	d.addAdjacentNode(c, 10);
 	e.addAdjacentNode(d, 5);
 	e.addAdjacentNode(c, 12);
-
 
 	// Calculating the shortest Path from where the car is to the nodes
 	shortestPath.calcPath(start);
@@ -164,8 +161,8 @@ public class Driver {
 	}
 
 	} // End of Switch
-	
-	try {   
+
+	try {
 	    // Displaying the shortest path
 	    System.out.println("************************************************************\n");
 	    System.out.printf("The shortest Path between %s and %s is distant %d units.\n", path.get(0),
@@ -178,14 +175,15 @@ public class Driver {
 	    System.out.println("Battery: " + hybrid.battery);
 	    System.out.println("Fuel: " + hybrid.fuel);
 
-	    // Checking if the car needs to find the nearest point to refuel or re-charge
-	    
+
+
 	    // Resetting all nodes distances to calculate them again from where the car is
-	    for(Node node : allNodes) {
+	    for (Node node : allNodes) {
 		node.setDistance(Integer.MAX_VALUE);
 		node.explored = false;
 	    }
 	    
+	    // Checking if the car needs to find the nearest point to refuel or re-charge
 	    if (hybrid.fuel <= 20 && hybrid.battery <= 20) {
 		hybrid.findRoute(both);
 	    }
@@ -201,7 +199,7 @@ public class Driver {
 	} catch (Exception exception) {
 
 	    // In case of errors it will print what exception was
-	    System.out.println("Exception" + exception.getMessage()+ exception.getStackTrace());
+	    System.out.println("Exception" + exception.getMessage() + exception.getStackTrace());
 
 	}
 	// Closing scanner

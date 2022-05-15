@@ -116,7 +116,11 @@ public class Car {
 
     public void checkAutonomy() {
 
-	if (fuel > battery && battery == 0) {
+	if (battery <= 0 && fuel <= 0) {
+	    canMove = false;
+	}
+
+	else if (fuel > battery && battery == 0) {
 
 	    setComponent("fuel");
 	    System.out.printf("\nCar is using %s\n", getComponent());
@@ -125,10 +129,6 @@ public class Car {
 	else if (battery > fuel && fuel == 0) {
 	    setComponent("battery");
 	    System.out.printf("\nCar is using %s\n", getComponent());
-	}
-
-	else if (battery <= 0 && fuel <= 0) {
-	    canMove = false;
 	}
 
 	else if (fuel <= 20) {
@@ -221,13 +221,13 @@ public class Car {
     public void findRoute(List<Node> nodeTypes) {
 	// Initialising Dijkstra's
 	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
-	
+
 	// Calculating the Path from the Current Position of the car
 	dijkstra.calcPath(currentPosition);
-	
+
 	// The closest charge point or gas station will be the first node of the list
 	Node closestRefuel = nodeTypes.get(0);
-	
+
 	// The path to follow to reach the place.
 	List<Node> path = dijkstra.getPath(closestRefuel);
 	List<Node> pathToPrint = new ArrayList<Node>();
